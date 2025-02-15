@@ -1,0 +1,8 @@
+Error: Not allowed by CORSError: Not allowed by CORSError: Not allowed by CORSError: Not allowed by CORS
+Error: Not allowed by CORS
+Error: Not allowed by CORS
+Error: Not allowed by CORS
+Error: Not allowed by CORS
+Error: Not allowed by CORS
+Error: Not allowed by CORS
+Error: Not allowed by CORS
