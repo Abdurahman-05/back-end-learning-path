@@ -41,7 +41,7 @@ const whitelist = ['https://www.google.com','https://www.example.com' ,'https://
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
+    if (whitelist.includes(origin) || !origin){
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -75,3 +75,26 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
+
+
+
+////why we not use this direct routing instad of using router in a separate file and impotinr it into ihe main server.js file
+//1,
+// 🔹 Pros
+// ✔ Simple and easy for small apps.
+// ✔ No need to create multiple files.
+
+// 🔹 Cons
+// ❌ Hard to manage when the project grows.
+// ❌ Makes server.js very long if there are many routes.
+// ❌ Not modular (everything is in one file).
+//2,using express.router() and import in server.js
+// 🔹 Pros
+// ✔ Better organization (routes are in separate files).
+// ✔ Easier to manage in large projects.
+// ✔ Improves maintainability (each route file handles a specific feature).
+
+// 🔹 Cons
+// ❌ Requires more files (but worth it for large projects).
+// ❌ More complex than a single-file approach.
+
