@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 const cors = require("cors");
+const corsOptions = require("./config/corsOption");
 const { logger } = require("./middleware/logEvent");
 const errorHandler = require("./middleware/errorHandler");
 const PORT = process.env.PORT || 3500;
@@ -18,7 +19,7 @@ app.use('/',require('./routes/root'));
 app.use('/employees',require('./routes/api/employees'));
 
 
-
+app.use(cors(corsOptions));
 
 
 // Error handling middleware
@@ -26,7 +27,9 @@ app.use('/employees',require('./routes/api/employees'));
 //   console.error(err.stack);
 //   res.status(500).send(err.message);
 // })
-
+app.get("*", (req, res) => {
+  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+});
 
 // app.use(errorHandler);
 

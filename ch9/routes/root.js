@@ -12,9 +12,7 @@ router.get("/old(.html)", (req, res) => {
   res.status("301").redirect("new-page");
 });
 
-router.get("*", (req, res) => {
-  res.status(404).sendFile(path.join(__dirname,'..', "views", "404.html"));
-});
+
 
 
 
