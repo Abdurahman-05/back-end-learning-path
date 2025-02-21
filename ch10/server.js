@@ -17,7 +17,8 @@ app.use("/",express.static(path.join(__dirname, "public")));
 app.use('/sub',require('./routes/subdir'));
 app.use('/',require('./routes/root'));
 app.use('/employees',require('./routes/api/employees'));
-
+app.use("/register",require('./routes/register'));
+app.use("/login",require('./routes/login'));
 
 app.use(cors(corsOptions));
 
