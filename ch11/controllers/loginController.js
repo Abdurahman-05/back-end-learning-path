@@ -13,7 +13,7 @@ require('dotenv').config();
 
 
 
-const HandlerOldUser = async (req, res) => {
+const handleOldUser = async (req, res) => {
   const user = req.body.user;
   const pwd = req.body.pwd;
 
@@ -53,7 +53,7 @@ const HandlerOldUser = async (req, res) => {
       else {res.sendStatus(401)}
       
     }
-    module.exports = {HandlerOldUser}
+    module.exports = {handleOldUser}
 
 
 
