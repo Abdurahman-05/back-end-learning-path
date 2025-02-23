@@ -18,7 +18,7 @@ const handleNewUser = async (req, res) => {
       .status(400)
       .json({ missage: "username and password are required!!!!" });
 
-  const duplicate = usersDb.users.find(person => person.username === user);
+  const duplicate = usersDb.users.find((person) => person.username === user);
 
   if (duplicate) return res.sendStatus(409);
   try {
@@ -32,7 +32,7 @@ const handleNewUser = async (req, res) => {
     console.log(usersDb.users);
     res.status(201).json({ success: `new user ${user} created` });
   } catch (error) {
-    return res.status(500).json({ missage: error.message});
+    return res.status(500).json({ missage: error.message });
   }
 };
 

@@ -7,18 +7,19 @@ const corsOptions = require("./config/corsOption");
 const { logger } = require("./middleware/logEvent");
 const errorHandler = require("./middleware/errorHandler");
 const PORT = process.env.PORT || 3500;
+const verifyJWT = require('./middleware/verifyJWT');
+const cookiesParser = require('cookie-parser');
+
+
+app.use(cookiesParser());
 
 
 app.use(express.json());
-//built in middleware
-app.use("/subdir",express.static(path.join(__dirname, "public"))); //Serve static files (CSS, JS, images)
-app.use("/",express.static(path.join(__dirname, "public")));
 
-app.use('/sub',require('./routes/subdir'));
-app.use('/',require('./routes/root'));
-app.use('/employees',require('./routes/api/employees'));
-app.use("/register",require('./routes/register'));
 app.use("/login",require('./routes/login'));
+app.use("/register",require('./routes/register'));
+app.use("/refresh",require("./routes/refresh"))
+app.use('/employees',verifyJWT,require('./routes/api/employees'));
 
 app.use(cors(corsOptions));
 
