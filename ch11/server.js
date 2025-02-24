@@ -18,7 +18,7 @@ app.use(express.json());
 
 app.use("/login",require('./routes/login'));
 app.use("/register",require('./routes/register'));
-app.use("/refresh",require("./routes/refresh"))
+// app.use("/refresh",require("./routes/refresh"))
 app.use('/employees',verifyJWT,require('./routes/api/employees'));
 
 app.use(cors(corsOptions));
