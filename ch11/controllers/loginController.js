@@ -130,7 +130,7 @@ const handleOldUser = async (req, res) => {
     const refreshToken = await jwt.sign(
       { username: foundUser.username },
       process.env.REFRASH_TOKEN_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "18s" }
     );
     const currentUser = { ...foundUser, refreshToken };
     otherUser = userDB.users.filter(
@@ -142,8 +142,8 @@ const handleOldUser = async (req, res) => {
       path.join(__dirname, "..", "model", "users.json"),
     JSON.stringify(userDB.users),
     );
-      res.json({accessToken});
     res.cookie("jwt",refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+      res.json({accessToken});
   } else {
     res.sendStatus(401);
   }
