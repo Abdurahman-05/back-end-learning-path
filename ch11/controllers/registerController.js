@@ -1,4 +1,4 @@
-const userDB = {
+const usersDB = {
   users: require("../model/users.json"),
   setUsers: function (data) {
     this.users = data;
@@ -14,16 +14,16 @@ const handleNewUser = async (req, res) => {
 
   if (!user || !pwd) return res.status(400).json({ message: "Username and password are required." });
 
-  const duplicate = userDB.users.find((person) => person.username === user);
+  const duplicate = usersDB.users.find((person) => person.username === user);
   if (duplicate) return res.status(409).json({ message: "User already exists." });
 
   try {
     const hashpwd = await bcrypt.hash(pwd, 10);
     const newUser = {"username":user,"password":hashpwd};
-    userDB.setUsers([...userDB.users,newUser]);
+    usersDB.setUsers([...usersDB.users,newUser]);
     await fsPromises.writeFile(
       path.join(__dirname,"..","model","users.json"),
-      JSON.stringify(userDB.users)
+      JSON.stringify(usersDB.users)
   );
     res.json({message: `the user ${user} is regitered!!!!`})
 

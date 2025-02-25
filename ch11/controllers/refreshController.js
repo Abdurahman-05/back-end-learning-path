@@ -89,7 +89,6 @@ const handleRefresh = (req, res) => {
         );
         res.json({ accessToken });
       });
-  res.json({accessToken});
 
 };
 

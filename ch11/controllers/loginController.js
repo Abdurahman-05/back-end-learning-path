@@ -124,13 +124,13 @@ const handleOldUser = async (req, res) => {
     const accessToken = await jwt.sign(
       { username: foundUser.username },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "15s" }
+      { expiresIn: "30s" }
     );
 
     const refreshToken = await jwt.sign(
       { username: foundUser.username },
       process.env.REFRASH_TOKEN_SECRET,
-      { expiresIn: "18s" }
+      { expiresIn: "1d" }
     );
     const currentUser = { ...foundUser, refreshToken };
     otherUser = userDB.users.filter(
