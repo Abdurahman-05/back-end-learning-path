@@ -1,1 +1,11 @@
-[{"username":"a","password":"$2b$10$QtWqF1Stxmm8D2h3cmlTWOfApvjUzoRvyi2m0zRGOpItEHDN1Ta5y","refreshToken":""}]
+[
+  {
+    "username": "a",
+    "password": "$2b$10$QtWqF1Stxmm8D2h3cmlTWOfApvjUzoRvyi2m0zRGOpItEHDN1Ta5y",
+    "refreshToken": ""
+  },
+  {
+    "username": "abdu",
+    "password": "$2b$10$9Nb8mX3dhvSzL6wKcNWWjejsIdupvQjoQMxfnT7tgCS2yvJPJef8."
+  }
+]

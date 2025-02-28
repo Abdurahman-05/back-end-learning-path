@@ -9,6 +9,7 @@ const errorHandler = require("./middleware/errorHandler");
 const PORT = process.env.PORT || 3500;
 const verifyJWT = require('./middleware/verifyJWT');
 const cookiesParser = require('cookie-parser');
+const credentials = require("./middleware/credentials");
 
 
 app.use(cookiesParser());
@@ -16,13 +17,15 @@ app.use(cookiesParser());
 
 app.use(express.json());
 
+app.use(credentials);
+app.use(cors(corsOptions));
+
 app.use("/login",require('./routes/login'));
 app.use("/register",require('./routes/register'));
 app.use("/refresh",require("./routes/refresh"))
 app.use("/logout",require("./routes/logout"))
 app.use('/employees',verifyJWT,require('./routes/api/employees'));
 
-app.use(cors(corsOptions));
 
 
 // Error handling middleware
@@ -62,3 +65,45 @@ app.listen(PORT, () => {
 // ❌ Requires more files (but worth it for large projects).
 // ❌ More complex than a single-file approach.
 
+
+
+// const https = require("https");
+// const fs = require("fs");
+// const path = require("path");
+// const express = require("express");
+// const app = express();
+// const cors = require("cors");
+// const corsOptions = require("./config/corsOption");
+// const { logger } = require("./middleware/logEvent");
+// const errorHandler = require("./middleware/errorHandler");
+// const verifyJWT = require("./middleware/verifyJWT");
+// const cookiesParser = require("cookie-parser");
+// const credentials = require("./middleware/credentials");
+
+// const PORT = process.env.PORT || 3500;
+
+// // Load SSL certificates
+// const options = {
+//   key: fs.readFileSync(path.join(__dirname, "key.pem")),
+//   cert: fs.readFileSync(path.join(__dirname, "cert.pem")),
+// };
+
+// app.use(cookiesParser());
+// app.use(express.json());
+// app.use(credentials);
+// app.use(cors(corsOptions));
+
+// app.use("/login", require("./routes/login"));
+// app.use("/register", require("./routes/register"));
+// app.use("/refresh", require("./routes/refresh"));
+// app.use("/logout", require("./routes/logout"));
+// app.use("/employees", verifyJWT, require("./routes/api/employees"));
+
+// app.get("*", (req, res) => {
+//   res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+// });
+
+// // Start the HTTPS server
+// https.createServer(options, app).listen(PORT, () => {
+//   console.log(`Server is running at https://localhost:${PORT}`);
+// });

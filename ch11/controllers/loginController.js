@@ -129,11 +129,11 @@ const handleOldUser = async (req, res) => {
 
     const refreshToken = await jwt.sign(
       { username: foundUser.username },
-      process.env.REFRASH_TOKEN_SECRET,
+      process.env.REFRESH_TOKEN_SECRET,
       { expiresIn: "1d" }
     );
     const currentUser = { ...foundUser, refreshToken };
-    otherUser = userDB.users.filter(
+    const otherUser = userDB.users.filter(
       (person) => person.username !== foundUser.username
     );
     userDB.setUsers([...otherUser, currentUser]);
@@ -142,7 +142,7 @@ const handleOldUser = async (req, res) => {
       path.join(__dirname, "..", "model", "users.json"),
     JSON.stringify(userDB.users),
     );
-    res.cookie("jwt",refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+    res.cookie("jwt",refreshToken, { httpOnly: true,sameSite:'none',secure:false, maxAge: 24 * 60 * 60 * 1000 });
       res.json({accessToken});
   } else {
     res.sendStatus(401);

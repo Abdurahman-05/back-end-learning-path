@@ -22,7 +22,7 @@ const handleLogout = async (req, res) => {
   );
 
   if (!foundUser) {
-    res.clearCookie("jwt", { httpOnly: true });
+    res.clearCookie("jwt", { httpOnly: true,sameSite:'none',secure:false});
     return res.sendStatus(403);
   }
   // delete the refresh token  in DB
@@ -36,7 +36,7 @@ const handleLogout = async (req, res) => {
     path.join(__dirname, "..", "model", "users.json"),
     JSON.stringify(usersDB.users)
   );
-  res.clearCookie("jwt", { httpOnly: true });
+  res.clearCookie("jwt", { httpOnly: true,sameSite:'none',secure:false});
   res.sendStatus(204);
 };
 

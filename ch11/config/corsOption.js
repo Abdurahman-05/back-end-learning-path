@@ -4,11 +4,12 @@ const fs = require("fs");
 const cors = require("cors");
 const app = express();
 
-const whitelist = ['https://www.google.com','https://www.example.com' ,'https://127.0.0.1:3500'];
+const allowedOrigins = require("./allowedOrigins");
+
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (whitelist.includes(origin) || !origin){
+    if (allowedOrigins.includes(origin) || !origin){
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
