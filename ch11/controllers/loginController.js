@@ -93,7 +93,6 @@
 
 // module.exports = { handleNewUser };
 
-
 const bcrypt = require("bcrypt");
 const fsPromises = require("fs").promises;
 const path = require("path");
@@ -121,8 +120,15 @@ const handleOldUser = async (req, res) => {
   const match = await bcrypt.compare(pwd, foundUser.password);
   if (match) {
     // createJWT
+    const roles = Object.values(foundUser.roles);
+
     const accessToken = await jwt.sign(
-      { username: foundUser.username },
+      {
+       " userInfo": {
+          "username": foundUser.username,
+          "roles": roles,
+        }
+      },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: "30s" }
     );
@@ -140,10 +146,15 @@ const handleOldUser = async (req, res) => {
 
     await fsPromises.writeFile(
       path.join(__dirname, "..", "model", "users.json"),
-    JSON.stringify(userDB.users),
+      JSON.stringify(userDB.users)
     );
-    res.cookie("jwt",refreshToken, { httpOnly: true,sameSite:'none',secure:false, maxAge: 24 * 60 * 60 * 1000 });
-      res.json({accessToken});
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.json({ accessToken });
   } else {
     res.sendStatus(401);
   }

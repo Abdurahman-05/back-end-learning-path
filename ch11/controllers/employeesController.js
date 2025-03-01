@@ -12,6 +12,7 @@ const data = {
 const getAllEmployees = (req, res) => {
   res.json(data.employees);
 };
+
 const createNewEmployees = (req, res) => {
   const newEmployee = {
     id: data.employees[data.employees.length - 1].id + 1 || 1,
@@ -47,8 +48,6 @@ const updateEmployee = (req, res) => {
 };
 
 const deleteEmployee = (req, res) => {
-   
-
   if (!employee) {
     return res.status(400).json({ massage: "id not found" });
   }
@@ -59,11 +58,13 @@ const deleteEmployee = (req, res) => {
   res.json(data.employees);
 };
 const getEmployee = (req, res) => {
-  const employee = data.employees.find((emp) => emp.id === parseInt(req.params.id))
+  const employee = data.employees.find(
+    (emp) => emp.id === parseInt(req.params.id)
+  );
   if (!employee) {
     return res.status(400).json({ massage: "id not found" });
   }
-  res.json(employee)
+  res.json(employee);
 };
 
 module.exports = {
