@@ -5,9 +5,14 @@ verifyRoles = (...allowedRoles) => {
 
     console.log(roleArray);
     console.log(req.roles);
-    const result = req.roles.some((role) => roleArray.includes(role));
+    const result = req.roles
+      .map((role) => roleArray.includes(role))
+      .find((val) => val === true);
+      console.log("req.roles:", req.roles);
+      console.log("allowedRoles:", roleArray);
     if (!result) return res.sendStatus(401);
+
     next();
-   };
+  };
 };
 module.exports = verifyRoles;

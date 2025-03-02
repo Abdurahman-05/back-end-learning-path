@@ -133,6 +133,7 @@ const handleOldUser = async (req, res) => {
       { expiresIn: "30s" }
     );
 
+
     const refreshToken = await jwt.sign(
       { username: foundUser.username },
       process.env.REFRESH_TOKEN_SECRET,
